@@ -1,0 +1,36 @@
+
+server:
+  port: 9000
+
+
+
+logging:
+  level:
+    org.springframework.security: trace
+
+spring:
+  application:
+    name: authorizationserver
+  security:
+    oauth2:
+      authorizationserver:
+        client:
+          oidc-client:
+            registration:
+              client-id: "crm"
+              client-secret: "{noop}crm"
+              client-authentication-methods:
+                - "client_secret_basic"
+              authorization-grant-types:
+                - "client_credentials"
+                - "authorization_code"
+                - "refresh_token"
+              redirect-uris:
+                - "http://client.localhost:8082/login/oauth2/code/spring"
+              post-logout-redirect-uris:
+                - "http://client.localhost:8082/"
+              scopes:
+                - "openid"
+                - "user.read"
+                - "user.write"
+            require-authorization-consent: true
